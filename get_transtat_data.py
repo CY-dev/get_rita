@@ -85,7 +85,7 @@ def get_data(month, year, post=POST, host=HOSTNAME, url=TRANSTAT_URL):
     # setup the POST
     post = post.format(year=year, month=month_name[month], frequency=month)
     # make sure post has no EOLs
-    post = post.replace('\r\n','')
+    post = post.replace('\n','')
 
     # create the user agent string, and emulate a browser
     user_agent_string = {
