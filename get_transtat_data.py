@@ -22,7 +22,6 @@ from post import POST
 HOSTNAME = "www.transtats.bts.gov"
 TRANSTAT_URL = "http://{host}/DownLoad_Table.asp?" + \
                "Table_ID=236&Has_Group=3&Is_Zipped=0"
-FREQUENCY = 1
 
 # the available data set is generally about 3 months behind, make
 # sure that we never ask for data that is within the last 3 months
@@ -77,17 +76,16 @@ def main(opts):
 
     print "File {} written".format(opts.concat)
 
-def get_data(month, year, post=POST, host=HOSTNAME,
-             url=TRANSTAT_URL, frequency=FREQUENCY):
+def get_data(month, year, post=POST, host=HOSTNAME, url=TRANSTAT_URL):
     """ get_data
         from month and year, create the POST
         and download the RITA data zip package
     """
 
     # setup the POST
-    post = post.format(year=year, month=month_name[month], frequency=frequency)
+    post = post.format(year=year, month=month_name[month], frequency=month)
     # make sure post has no EOLs
-    post = post.replace('\n','')
+    post = post.replace('\r\n','')
 
     # create the user agent string, and emulate a browser
     user_agent_string = {
